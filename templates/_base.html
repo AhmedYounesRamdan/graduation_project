@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Serv4U{% endblock title %}</title>
+        <link rel="stylesheet" href="{% static '_base.css' %}">
+        {% block css %}{%endblock css %}
+    </head>
+    <body>
+
+        <!-- Navigation Bar -->
+        <header>
+            <nav>
+                <a href="{% url 'home' %}">Serv4U</a>
+                <ul>
+                    <li><a href="{% url 'service_list' %}">Services</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'account_logout' %}">Log Out</a></li>
+                        <li><a href="{% url 'profile' %}">My Profile</a></li>
+                    {% else %}
+                        <li><a href="{% url 'account_login' %}">Log In</a></li>
+                        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main Content Area -->
+        <main>
+            {% block content %}{% endblock content %}
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2025 Serv4U. All rights reserved.</p>
+        </footer>
+
+    </body>
+</html>

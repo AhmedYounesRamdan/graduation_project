@@ -1,0 +1,32 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}{{ service.title }}{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'services/css/service_detail.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <h1>{{ service.title }}</h1>
+
+    <!-- Display the service image -->
+    <!-- <img src="{{ service.image.url }}" alt="{{ service.title }}" style="width: 200px; height: auto;"> -->
+
+    <!-- Display the list of craftsmen associated with this service -->
+    <h2>Craftsmen Offering This Service</h2>
+    <ul>
+        {% for craftsman in service.craftsmen.all %}
+            <li>
+                <strong>{{ craftsman.first_name }} {{ craftsman.last_name }}</strong>
+                <p>phone: {{ craftsman.user.phone }}</p>
+                <img src="{{ craftsman.photo.url }}" alt="{{ craftsman.first_name }} {{ craftsman.last_name }}" style="width: 100px; height: auto;">
+            </li>
+        {% empty %}
+            <li>No craftsmen found for this service.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Back to services list -->
+    <a href="{% url 'service_list' %}">Back to Services</a>
+{% endblock content %}

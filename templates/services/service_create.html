@@ -1,0 +1,36 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}Create Service{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'services/css/service_create.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <h1>Create a New Service</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Render the form fields -->
+        <div>
+            {{ form.title.label_tag }}
+            {{ form.title }}
+            {% if form.title.errors %}
+                <div class="error">{{ form.title.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div>
+            {{ form.image.label_tag }}
+            {{ form.image }}
+            {% if form.image.errors %}
+                <div class="error">{{ form.image.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit">Create Service</button>
+        <a href="{% url 'service_list' %}">Cancel</a>
+    </form>
+{% endblock content %}

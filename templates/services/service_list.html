@@ -1,0 +1,53 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}Services{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'services/css/service_list.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <h1>Our Services</h1>
+    <form method="get" action="{% url 'service_list' %}">
+        <input
+            type="text"
+            name="q"
+            placeholder="Search services by title, region, or craft..."
+            value="{{ request.GET.q }}"
+        >
+        <button type="submit">Search</button>
+    </form>
+
+    <ul>
+        {% for service in services %} 
+            <li>
+                <a href="{{ service.get_absolute_url }}">
+                    <div>
+                        <h2>{{ service.title }}</h2>
+                        <img src="{{ service.image.url }}" alt="{{ service.title }}" style="width: 50px; height:50px;">
+                    </div>
+                </a>
+            </li>
+        {% empty %}
+            <p>No services found.</p>
+        {% endfor %}
+    </ul>
+
+    {% if is_paginated %}
+        <div>
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Previous</a>
+            {% endif %}
+            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Next</a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <!-- Create Service Link (for Admins) -->
+    {% if perms.services.can_create_service %}
+        <a href="{% url 'service_create' %}">New Service</a>
+    {% endif %}
+{% endblock content %}

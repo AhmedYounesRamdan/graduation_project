@@ -1,0 +1,91 @@
+{% extends "_base.html" %}
+{% load static %}
+{% load socialaccount %}
+
+{% block title %}Sign Up{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'accounts/css/signup.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <h2>Create an Account</h2>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <!-- Username -->
+        <div>
+            <label for="{{ form.username.id_for_label }}">Username</label>
+            {{ form.username }}
+            {% if form.username.errors %}
+                <div class="error">{{ form.username.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Email -->
+        <div>
+            <label for="{{ form.email.id_for_label }}">Email</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+                <div class="error">{{ form.email.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Phone -->
+        <div>
+            <label for="{{ form.phone.id_for_label }}">Phone Number</label>
+            {{ form.phone }}
+            {% if form.phone.errors %}
+                <div class="error">{{ form.phone.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Password -->
+        <div>
+            <label for="{{ form.password1.id_for_label }}">Password</label>
+            {{ form.password1 }}
+            {% if form.password1.errors %}
+                <div class="error">{{ form.password1.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Confirm Password -->
+        <div>
+            <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+            {{ form.password2 }}
+            {% if form.password2.errors %}
+                <div class="error">{{ form.password2.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Terms and Conditions -->
+        <div>
+            {{ form.terms }}
+            <label for="{{ form.terms.id_for_label }}">{{ form.terms.label }}</label>
+            {% if form.terms.errors %}
+                <div class="error">{{ form.terms.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Is Craftsman Checkbox -->
+        <div>
+            {{ form.is_craftsman }}
+            <label for="{{ form.is_craftsman.id_for_label }}">{{ form.is_craftsman.label }}</label>
+            {% if form.is_craftsman.errors %}
+                <div class="error">{{ form.is_craftsman.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <hr>
+
+    <!-- Social Login -->
+    <p>Or sign up with:</p>
+    <a href="{% provider_login_url 'google' %}">Sign Up with Google</a>
+
+    <!-- Login Link -->
+    <p>Already have an account? <a href="{% url 'account_login' %}">Sign In</a></p>
+{% endblock content %}

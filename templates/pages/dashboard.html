@@ -1,0 +1,12 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'pages/css/dashboard.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <h2>Welcome, {{ request.user.username }}!</h2>
+{% endblock %}
