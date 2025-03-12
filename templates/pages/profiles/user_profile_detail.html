@@ -1,0 +1,39 @@
+{% extends "_base.html" %}
+
+{% block title %}User Profile{% endblock title %}
+
+{% block content %}
+<div>
+    <h1>User Profile</h1>
+    
+    <!-- Profile Picture -->
+    <div>
+        <h2>Profile Picture</h2>
+        {% if user.photo %}
+            <img src="{{ user.photo.url }}" alt="Profile Picture" style="width: 150px; height: auto;">
+        {% else %}
+            <p>No profile picture available.</p>
+        {% endif %}
+    </div>
+
+    <!-- User Information -->
+    <div>
+        <h2>Personal Information</h2>
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Phone:</strong> {{ user.phone }}</p>
+    </div>
+
+    <!-- Location Information -->
+    <div>
+        <h2>Location</h2>
+        <p><strong>Governorate:</strong> {{ user.get_governorate_display }}</p>
+        <p><strong>City:</strong> {{ user.city }}</p>
+    </div>
+
+    <!-- Optional: Add a link to edit the profile -->
+    <div>
+        <a href="{% url 'user_profile_update' %}">Edit Profile</a>
+    </div>
+</div>
+{% endblock content %}

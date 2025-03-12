@@ -18,8 +18,9 @@
     <ul>
         {% for craftsman in service.craftsmen.all %}
             <li>
-                <strong>{{ craftsman.first_name }} {{ craftsman.last_name }}</strong>
+                <strong>{{ craftsman.user.username }}</strong>
                 <p>phone: {{ craftsman.user.phone }}</p>
+                <p>Service: {{ craftsman.service }}</p>
                 <img src="{{ craftsman.photo.url }}" alt="{{ craftsman.first_name }} {{ craftsman.last_name }}" style="width: 100px; height: auto;">
             </li>
         {% empty %}

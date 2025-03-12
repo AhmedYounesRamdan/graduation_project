@@ -1,0 +1,26 @@
+{% extends "_base.html" %}
+
+{% block title %}Craftsman Profile{% endblock title %}
+
+{% block content %}
+    <h1>Craftsman Profile</h1>
+    
+    <!-- Profile Photo -->
+    {% if craftsman.photo %}
+        <img src="{{ craftsman.photo.url }}" alt="Craftsman Photo" style="width: 150px; height: auto;">
+    {% else %}
+        <p>No profile photo available.</p>
+    {% endif %}
+    
+    <!-- User Information -->
+    <p>Username: {{ craftsman.user.username }}</p>
+    <p>Email: {{ craftsman.user.email }}</p>
+    <p>Number: {{ craftsman.user.phone }}</p>
+    <p>Governorate: {{ craftsman.get_governorate_display }}</p>
+    <p>City: {{ craftsman.city }}</p>
+    <p>Service: {{ craftsman.service }}</p>
+    
+    <div>
+        <a href="{% url 'craftsman_profile_update' %}">Edit Profile</a>
+    </div>
+{% endblock content %}

@@ -14,6 +14,7 @@ class CustomUserAdmin(UserAdmin):
         "username",
         "email",
         "phone",
+        "is_craftsman",
         "is_superuser",
     ]
 

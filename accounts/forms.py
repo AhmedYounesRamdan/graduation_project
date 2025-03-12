@@ -2,8 +2,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
 from allauth.account.forms import SignupForm
-from profiles.models import UserProfile
 from craftsmen.models import Craftsman
+from .models import CustomUser
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -40,13 +40,14 @@ class CustomSignupForm(SignupForm):
     )
 
     def save(self, request):
+        # Save the user using the parent class's save method
         user = super().save(request)
+        
+        # Update the user's username and phone
         user.username = self.cleaned_data["username"]
         user.phone = self.cleaned_data["phone"]
+        user.is_craftsman = self.cleaned_data.get("is_craftsman", False)  # Ensure this line exists
         user.save()
-
-        # Create a UserProfile for all users
-        UserProfile.objects.create(user=user)
 
         # Create a Craftsman profile if the user is a craftsman
         if self.cleaned_data.get("is_craftsman"):
